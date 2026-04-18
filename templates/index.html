@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buscador de Películas</title>
+</head>
+<body>
+
+<h1>Buscar película</h1>
+
+<form method="post" action="/buscar">
+    <input type="text" name="titulo" placeholder="Ej: Batman">
+    <button type="submit">Buscar</button>
+</form>
+
+<hr>
+
+{% if peliculas %}
+    <h2>Resultados</h2>
+    <ul>
+        {% for p in peliculas %}
+            <li>
+                {{ p.Title }} ({{ p.Year }})
+                <a href="/detalle/{{ p.imdbID }}">Ver detalle</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if detalle %}
+    <h2>{{ detalle.Title }}</h2>
+    <p><b>Año:</b> {{ detalle.Year }}</p>
+    <p><b>Género:</b> {{ detalle.Genre }}</p>
+    <p><b>Director:</b> {{ detalle.Director }}</p>
+    <p><b>Duración:</b> {{ detalle.Runtime }}</p>
+    <p><b>Actores:</b> {{ detalle.Actors }}</p>
+    <p><b>Idioma:</b> {{ detalle.Language }}</p>
+    <p><b>País:</b> {{ detalle.Country }}</p>
+    <p><b>Fecha de estreno:</b> {{ detalle.Released }}</p>
+    <p><b>Rating:</b> {{ detalle.imdbRating }}</p>
+    <p><b>Awards:</b> {{ detalle.Awards }}</p>
+    <p><b>Plot:</b> {{ detalle.Plot }}</p>
+    <p><b>Clasificación:</b> {{ detalle.Rated }}</p>
+    <p><b>Tipo:</b> {{ detalle.Type }}</p>
+    <img src="{{ detalle.Poster }}" width="200">
+{% endif %}
+
+</body>
+</html>
