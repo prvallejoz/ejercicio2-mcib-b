@@ -2,13 +2,18 @@ from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 import requests
 import sqlite3
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
 
-API_KEY = "992451dc"
+API_KEY = os.getenv("OMDB_API_KEY")
 BASE_URL = "http://www.omdbapi.com/"
 
 #connect to the database and create the table if it doesn't exist
