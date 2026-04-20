@@ -12,7 +12,35 @@
     <button type="submit">Buscar</button>
 </form>
 
-<hr>
+<!-- add button named Consultar DB to consult the database and show all movies in the database and links to /consultar_db -->
+<form method="get" action="/consultar_db">
+    <button type="submit">Consultar DB</button>
+</form>
+
+<!-- show movie titles from the database -->
+{% if peliculas_db is defined %}
+    <h2>Mis Películas Guardadas</h2>
+    
+    {% if peliculas_db|length > 0 %}
+        <ul>
+        {% for peli in peliculas_db %}
+            <li>
+                <a href="/detalle_db/{{ peli.id }}">
+                    <strong>{{ peli.title }}</strong> ({{ peli.year }})
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+        
+    {% else %}
+        <div style="background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+            <p><strong>¡La base de datos está vacía!</strong></p>
+            <p>Aún no has guardado ninguna película. Utiliza el buscador para encontrar tus favoritas y añádelas.</p>
+        </div>
+    {% endif %}
+
+    <a href="/"><button>Volver al Buscador</button></a>
+{% endif %}
 
 {% if peliculas %}
     <h2>Resultados</h2>
@@ -26,10 +54,30 @@
     </ul>
 {% endif %}
 
+{% if peli_db_detalle %}
+    <div class="detalle-container">
+        <h1>{{ peli_db_detalle.title }}</h1>
+        <img src="{{ peli_db_detalle.poster }}" alt="Poster" style="width:200px;">
+        <p><strong>Año:</strong> {{ peli_db_detalle.year }}</p>
+        <p><strong>Director:</strong> {{ peli_db_detalle.director }}</p>
+        <p><strong>Actores:</strong> {{ peli_db_detalle.actors }}</p>
+        <p><strong>Sinopsis:</strong> {{ peli_db_detalle.plot }}</p>
+        <p><strong>Clasificación:</strong> {{ peli_db_detalle.rating }}</p>
+
+        <hr>
+        <button onclick="history.back()">← Regresar</button>
+
+        <a href="/">
+            <button>Ir al Inicio</button>
+        </a>
+    </div>
+{% endif %}
+
 {% if detalle %}
     <h2>{{ detalle.Title }}</h2>
     <p><b>Año:</b> {{ detalle.Year }}</p>
     <p><b>Género:</b> {{ detalle.Genre }}</p>
+    <p><b>IMBD_ID:</b> {{ detalle.imdbID }}</p>
     <p><b>Director:</b> {{ detalle.Director }}</p>
     <p><b>Duración:</b> {{ detalle.Runtime }}</p>
     <p><b>Actores:</b> {{ detalle.Actors }}</p>
@@ -42,7 +90,19 @@
     <p><b>Clasificación:</b> {{ detalle.Rated }}</p>
     <p><b>Tipo:</b> {{ detalle.Type }}</p>
     <img src="{{ detalle.Poster }}" width="200">
+    {% endif %}
+
+<!-- add button to save the movie in the database -->
+{% if detalle %}
+    <form method="post" action="/guardar/{{ detalle.imdbID }}">
+        <input type="hidden" name="imdb_id" value="{{ detalle.imdbID }}">
+        <input type="hidden" name="title" value="{{ detalle.Title }}">
+        <input type="hidden" name="year" value="{{ detalle.Year }}">
+        <button type="submit">Guardar en DB</button>
+    </form>
 {% endif %}
+   
+
 
 </body>
 </html>
