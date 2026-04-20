@@ -8,7 +8,7 @@
 <h1>Buscar película</h1>
 
 <form method="post" action="/buscar">
-    <input type="text" name="titulo" placeholder="Ej: Batman">
+    <input type="text" name="titulo" placeholder="Ej: Batman" required>
     <button type="submit">Buscar</button>
 </form>
 
@@ -91,6 +91,7 @@
     <p><b>Tipo:</b> {{ detalle.Type }}</p>
     <img src="{{ detalle.Poster }}" width="200">
     {% endif %}
+
 
 <!-- add button to save the movie in the database -->
 {% if detalle %}
