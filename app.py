@@ -4,13 +4,13 @@ import requests
 import sqlite3
 import os
 from dotenv import load_dotenv
-
+from fastapi.staticfiles import StaticFiles
 
 load_dotenv()
 
 
 app = FastAPI()
-
+app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 API_KEY = os.getenv("OMDB_API_KEY")

@@ -1,0 +1,162 @@
+/* =========================================
+   Variables y Configuración General
+   ========================================= */
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-main: #f5f5f5;
+    --text-muted: #aaaaaa;
+    --accent-color: #f5c518; /* Color estilo IMDb */
+    --accent-hover: #d4a710;
+    --border-radius: 8px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #333;
+    margin: 20px 0;
+}
+
+/* =========================================
+   Formularios, Inputs y Botones
+   ========================================= */
+form {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+input[type="text"] {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #333;
+    border-radius: var(--border-radius);
+    background-color: #2a2a2a;
+    color: var(--text-main);
+    flex: 1;
+    min-width: 200px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: var(--accent-color);
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--accent-color);
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+button:hover {
+    background-color: var(--accent-hover);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* =========================================
+   Listas de Películas
+   ========================================= */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: var(--card-bg);
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+li:hover {
+    transform: translateY(-2px);
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   Contenedor de Detalles
+   ========================================= */
+.detalle-container {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    margin-top: 20px;
+}
+
+.detalle-container p, 
+p b, 
+p strong {
+    margin-bottom: 10px;
+}
+
+p b, 
+p strong {
+    color: var(--text-muted);
+    margin-right: 5px;
+}
+
+img {
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    margin: 15px 0;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ajustes para el detalle generado fuera del .detalle-container */
+body > p {
+    background-color: var(--card-bg);
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+/* Mensaje de error/vacío modificado para modo oscuro */
+div[style*="background-color: #f8d7da"] {
+    background-color: rgba(220, 53, 69, 0.1) !important;
+    border: 1px solid #dc3545 !important;
+    color: #ea868f !important;
+}
