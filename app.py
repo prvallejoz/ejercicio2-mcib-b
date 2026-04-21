@@ -16,7 +16,6 @@ templates = Jinja2Templates(directory="templates")
 API_KEY = os.getenv("OMDB_API_KEY")
 BASE_URL = "http://www.omdbapi.com/"
 
-#connect to the database and create the table if it doesn't exist
 conn = sqlite3.connect("peliculas.db")
 cursor = conn.cursor()
 cursor.execute("""CREATE TABLE IF NOT EXISTS peliculas (
@@ -43,12 +42,10 @@ def home(request: Request):
         }
     )
 
-#add route to show all movie titles in the database and show them in the index.html template with links to /detalle/{{ imdb_id }} to show the details of the movie
 @app.get("/consultar_db")
 def consultar_db(request: Request):
     conn = sqlite3.connect("peliculas.db")
     
-    # ¡Agrega esta línea! Convierte los resultados en objetos similares a diccionarios
     conn.row_factory = sqlite3.Row 
     
     cursor = conn.cursor()
@@ -61,7 +58,7 @@ def consultar_db(request: Request):
         "index.html",
         {
             "request": request,
-            "peliculas_db": peliculas # Se envía como peliculas_db
+            "peliculas_db": peliculas
         }
     )
 
@@ -108,7 +105,7 @@ def detalle(request: Request, imdb_id: str):
 
 @app.post("/guardar/{imdb_id}")
 def guardar(request: Request, imdb_id: str):
-    # 1. Obtenemos los datos de la película desde la API usando el ID
+    
     params = {
         "apikey": API_KEY,
         "i": imdb_id,
@@ -117,7 +114,7 @@ def guardar(request: Request, imdb_id: str):
     response = requests.get(BASE_URL, params=params)
     detalle = response.json()
 
-    # 2. Guardamos en la base de datos usando .get() por seguridad
+    
     conn = sqlite3.connect("peliculas.db")
     cursor = conn.cursor()
     cursor.execute("""
@@ -136,7 +133,7 @@ def guardar(request: Request, imdb_id: str):
     conn.commit()
     conn.close()
 
-    # 3. Retornamos la respuesta
+
     return templates.TemplateResponse(
         request,
         "index.html",
@@ -149,10 +146,10 @@ def guardar(request: Request, imdb_id: str):
 @app.get("/detalle_db/{peli_id}")
 def detalle_db(request: Request, peli_id: int):
     conn = sqlite3.connect("peliculas.db")
-    conn.row_factory = sqlite3.Row  # Para acceder por nombre de columna
+    conn.row_factory = sqlite3.Row 
     cursor = conn.cursor()
     
-    # Buscamos la película específica por su ID primario
+    
     cursor.execute("SELECT * FROM peliculas WHERE id = ?", (peli_id,))
     pelicula = cursor.fetchone()
     conn.close()
@@ -174,7 +171,7 @@ def limpiar_base_datos(request: Request):
     conn = sqlite3.connect("peliculas.db")
     cursor = conn.cursor()
     cursor.execute("DELETE FROM peliculas")
-    cursor.execute("DELETE FROM sqlite_sequence WHERE name='peliculas'") # Reinicia el contador de IDs
+    cursor.execute("DELETE FROM sqlite_sequence WHERE name='peliculas'") 
     conn.commit()
     conn.close()
 
