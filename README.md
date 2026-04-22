@@ -1,5 +1,4 @@
-Tratamiento de Datos
-Ejercicio 2 - Grupo 7 - FastAPI
+## Tratamiento de Datos Ejercicio 2 - Grupo 7 - FastAPI
 
 Para el desarrollo del presente ejercicio tomaremos como premisa la hipotética creación de un catálogo de películas en formato físico para los fanáticos de estos formatos, las cuales serán clasificadas y almacenadas junto a datos básicos. Asumiremos que cada película que poseamos en el catálogo físico será almacenada dentro de una base de datos local usando como parámetro de clasificación el código asignado en ImDB(Internet Movie DataBase). Los datos de la película serán consultados mediante un api externo llamado The Open Movie DataBase OMDB https://www.omdbapi.com/.
 
